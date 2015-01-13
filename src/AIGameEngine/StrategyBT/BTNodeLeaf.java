@@ -1,8 +1,8 @@
 package AIGameEngine.StrategyBT;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Ёлемент дерева поведени€. Ќе может иметь дочерних вершин. —одержит в себе
@@ -26,7 +26,7 @@ public class BTNodeLeaf extends BTNode {
 	/**
 	 * —писок действий дл€ владельца стратегии.
 	 */
-	private List<Predicate<Object>> actions;
+	private List<Consumer<Object>> actions;
 
 	/**
 	 * ƒобавл€ет действие в список по индексу.
@@ -36,7 +36,7 @@ public class BTNodeLeaf extends BTNode {
 	 * @param action
 	 *            действие
 	 */
-	public void addAction(int index, Predicate<Object> action) {
+	public void addAction(int index, Consumer<Object> action) {
 		this.actions.add(index, action);
 	}
 
@@ -58,7 +58,7 @@ public class BTNodeLeaf extends BTNode {
 	 * @param action
 	 *            новое действие
 	 */
-	public void setAction(int index, Predicate<Object> action) {
+	public void setAction(int index, Consumer<Object> action) {
 		this.actions.set(index, action);
 	}
 
@@ -69,7 +69,7 @@ public class BTNodeLeaf extends BTNode {
 	 *            индекс дейтсви€
 	 * @return действие
 	 */
-	public Predicate<Object> getAction(int index) {
+	public Consumer<Object> getAction(int index) {
 		return this.actions.get(index);
 	}
 
@@ -84,7 +84,8 @@ public class BTNodeLeaf extends BTNode {
 	public boolean execute(Object object) {
 		if (!this.getConditionResult(object))
 			return false;
-
+		for (Consumer<Object> p : actions)
+			p.accept(object);
 		return true;
 	}
 
