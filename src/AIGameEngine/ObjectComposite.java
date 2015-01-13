@@ -3,51 +3,44 @@ package AIGameEngine;
 import java.util.*;
 
 /**
+ * Сотавной объект. Данный класс может содержать в себе другие объекты
+ * {@code Object}.
  * 
+ * @author Alexey Nikitin
+ * @version 0.1
+ * @see Object
  */
-public class ObjectComposite extends Object {
+public abstract class ObjectComposite extends Object {
 
-    /**
-     * 
-     */
-    public ObjectComposite() {
-    }
+	/**
+	 * Конструктор по умолчанию. Инициализирует список объектов.
+	 */
+	public ObjectComposite() {
+		this.objects = new LinkedList<Object>();
+	}
 
-    /**
-     * 
-     */
-    private List<Object> objects;
+	/**
+	 * Список дочерних объектов.
+	 */
+	private List<Object> objects;
 
 	@Override
 	public void addObject(Object object) {
-		// TODO Auto-generated method stub
-		
+		this.objects.add(object);
 	}
 
 	@Override
 	public void removeObject(Object object) {
-		// TODO Auto-generated method stub
-		
+		this.objects.remove(object);
 	}
 
 	@Override
-	public void containsObject(Object object) {
-		// TODO Auto-generated method stub
-		
+	public boolean containsObject(Object object) {
+		return this.objects.contains(object);
 	}
 
 	@Override
-	public void getChildObjects() {
-		// TODO Auto-generated method stub
-		
+	public List<Object> getChildObjects() {
+		return this.objects;
 	}
-
-	@Override
-	public void action(ActionEvent actionEvent) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
 }

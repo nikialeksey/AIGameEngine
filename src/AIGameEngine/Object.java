@@ -3,89 +3,113 @@ package AIGameEngine;
 import java.util.*;
 
 /**
+ * Этот класс представляет любой объект в игре. Абсолютно любой объект в игре
+ * может влиять на происходящее. Поэтому все объекты должны так или иначе
+ * порождать свой Object класс, который будет ответственным за логику
+ * виртуального интеллекта.
  * 
+ * @author Alexey Nikitin
+ * @version 0.1
  */
 public abstract class Object {
 
-    /**
-     * 
-     */
-    public Object() {
-    }
+	/**
+	 * Ссылка на родительский объект для данного.
+	 */
+	private Object parentObject;
 
-    /**
-     * 
-     */
-    private Object parentObject;
+	/**
+	 * Стратегия, используемая данным объектом.
+	 */
+	private Strategy strategy;
 
-    /**
-     * 
-     */
-    private Strategy strategy;
+	/**
+	 * Добавляет объект к данному как дочерний.
+	 * 
+	 * @param object
+	 *            дочерний объект
+	 */
+	public abstract void addObject(Object object);
 
+	/**
+	 * Удаляет дочерний объект из данного.
+	 * 
+	 * @param object
+	 *            удаляемый объект
+	 */
+	public abstract void removeObject(Object object);
 
+	/**
+	 * Проверяет, содержится ли объект в данном как дочерний.
+	 * 
+	 * @param object
+	 *            искомый объект
+	 * @return {@code true} если объект содержится в данном как дочерний
+	 */
+	public abstract boolean containsObject(Object object);
 
+	/**
+	 * Возвращает родительский объект к данному.
+	 * 
+	 * @return родительский объект для данного
+	 */
+	public Object getParentObject() {
+		return this.parentObject;
+	}
 
+	/**
+	 * Устанавливает новый родительский объект к данному.
+	 * 
+	 * @param parentObject
+	 *            новый родительский объект
+	 */
+	public void setParentObject(Object parentObject) {
+		this.parentObject = parentObject;
+	}
 
+	/**
+	 * Возвращает список дочерних объектов.
+	 * 
+	 * @return список дочерних объектов
+	 */
+	public abstract List<Object> getChildObjects();
 
-    /**
-     * @param object
-     */
-    public abstract void addObject(Object object);
+	/**
+	 * Выполняет действие, задаваемое {@code ActionEvent}.
+	 * 
+	 * @param actionEvent
+	 *            действие
+	 * @see ActionEvent
+	 */
+	public abstract void action(ActionEvent actionEvent);
 
-    /**
-     * @param object
-     */
-    public abstract void removeObject(Object object);
+	/**
+	 * Возвращает стратегию данного объекта.
+	 * 
+	 * @return стратегию данного объекта
+	 */
+	public Strategy getStrategy() {
+		return this.strategy;
+	}
 
-    /**
-     * @param object
-     */
-    public abstract void containsObject(Object object);
+	/**
+	 * Устанавливает новую стратегию для данного объекта.
+	 * 
+	 * @param strategy
+	 *            новая стратегия объекта
+	 */
+	public void setStrategy(Strategy strategy) {
+		this.strategy = strategy;
+	}
 
-    /**
-     * 
-     */
-    public void getParentObject() {
-        // TODO implement here
-    }
-
-    /**
-     * @param parentObject
-     */
-    public void setParentObject(Object parentObject) {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public abstract void getChildObjects();
-
-    /**
-     * @param actionEvent
-     */
-    public abstract void action(ActionEvent actionEvent);
-
-    /**
-     * 
-     */
-    public void getStrategy() {
-        // TODO implement here
-    }
-
-    /**
-     * @param strategy
-     */
-    public void setStrategy(Strategy strategy) {
-        // TODO implement here
-    }
-
-    /**
-     * @param conditionEvent
-     */
-    public void getConditionResult(ConditionEvent conditionEvent) {
-        // TODO implement here
-    }
+	/**
+	 * Проверяет условие, заданное {@code ConditionEvent}.
+	 * 
+	 * @param conditionEvent
+	 *            заданное условие, которое необходимо проверить
+	 * @return {@code true} если условие истино
+	 * @see ConditionEvent
+	 */
+	public abstract boolean getConditionResult(ConditionEvent conditionEvent);
 
 }
