@@ -1,7 +1,5 @@
 package AIGameEngine;
 
-import java.util.*;
-
 /**
  * Стратегия определяет поведение объектов. 
  */
