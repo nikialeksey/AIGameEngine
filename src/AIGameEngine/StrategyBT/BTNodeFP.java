@@ -1,22 +1,37 @@
 package AIGameEngine.StrategyBT;
 
-import java.util.*;
+import java.util.function.Function;
 
 /**
+ * Элемент дерева поведения. Выполняет попорядку все свои дочернии вершины, если
+ * условие этой вершины истинно, до тех пор, пока не обнаружится первая успешная
+ * вершина.
  * 
+ * @author Alexey Nikitin
+ * @version 0.1
  */
-public class BTNodeFP extends BTNode {
+public class BTNodeFP extends BTNodeComposite {
 
-    /**
-     * 
-     */
-    public BTNodeFP() {
-    }
+	/**
+	 * Конструктор инициализирует условие ссылкой на условие.
+	 * 
+	 * @param condition
+	 *            ссылка на некоторое условие
+	 */
+	public BTNodeFP(Function<Object, Boolean> condition) {
+		super(condition);
+	}
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-		
+	public boolean execute(Object object) {
+		if (!this.getConditionResult(object))
+			return false;
+		for (BTNode nodeBT : this.getChildNodes()) {
+			boolean executionResult = nodeBT.execute(object);
+			if (executionResult)
+				break;
+		}
+		return true;
 	}
 
 }

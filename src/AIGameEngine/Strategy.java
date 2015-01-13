@@ -3,20 +3,22 @@ package AIGameEngine;
 import java.util.*;
 
 /**
- * 
+ * Стратегия определяет поведение объектов. 
  */
 public abstract class Strategy {
 
     /**
-     * 
+     * Инициализирует ссылку на объект, владеющей этой стратегией.
+     * @param ownObject объект, владеющей данной стратегией 
      */
-    public Strategy() {
+    public Strategy(Object ownObject) {
+    	this.ownObject = ownObject;
     }
 
     /**
-     * 
+     * Ссылка на объект, владеющей этой стратегией.
      */
-    private Object ownObject;
+    private final Object ownObject;
 
 
 
@@ -24,22 +26,16 @@ public abstract class Strategy {
 
 
     /**
-     * 
+     * Выполняет стратегию.
      */
     public abstract void execute();
 
     /**
-     * 
+     * Возвращает объект, владеющей данной стратегией.
+     * @return объект, владеющий данной стратегией
      */
-    public void getOwnObject() {
-        // TODO implement here
-    }
-
-    /**
-     * @param object
-     */
-    public void setOwnObject(Object object) {
-        // TODO implement here
+    public Object getOwnObject() {
+    	return this.ownObject;
     }
 
 }

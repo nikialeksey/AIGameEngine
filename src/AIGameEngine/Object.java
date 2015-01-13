@@ -75,13 +75,12 @@ public abstract class Object {
 	public abstract List<Object> getChildObjects();
 
 	/**
-	 * Выполняет действие, задаваемое {@code ActionEvent}.
+	 * Выполняет действие, задаваемое идентификатором.
 	 * 
 	 * @param actionEvent
-	 *            действие
-	 * @see ActionEvent
+	 *            идентификатор действия
 	 */
-	public abstract void action(ActionEvent actionEvent);
+	public abstract void action(int actionEvent);
 
 	/**
 	 * Возвращает стратегию данного объекта.
@@ -103,13 +102,12 @@ public abstract class Object {
 	}
 
 	/**
-	 * Проверяет условие, заданное {@code ConditionEvent}.
+	 * Проверяет условие, заданное идентификатором.
 	 * 
 	 * @param conditionEvent
-	 *            заданное условие, которое необходимо проверить
+	 *            идентификатор условия, которое необходимо проверить
 	 * @return {@code true} если условие истино
-	 * @see ConditionEvent
 	 */
-	public abstract boolean getConditionResult(ConditionEvent conditionEvent);
+	public abstract boolean getConditionResult(int conditionEvent);
 
 }

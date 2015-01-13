@@ -1,29 +1,36 @@
 package AIGameEngine.StrategyBT;
 
-import java.util.*;
-
+import AIGameEngine.Object;
 import AIGameEngine.Strategy;
 
 /**
- * 
+ * Стратегия, определяющая поведение объекта с помощью деревьев поведения.
+ * @author Alexey Nikitin
+ * @version 0.1
+ * @see <a href="http://en.wikipedia.org/wiki/Behavior_Trees_(Artificial_Intelligence,_Robotics_and_Control)"> wiki </a>
+ * @see Strategy
  */
 public class StrategyBT extends Strategy {
 
     /**
-     * 
+     * Конструктор инициализирует ссылку на объект, владеющий стратегией и
+     * ссылку на корень дерева поведения.
+     * @param ownObject владелец стратегией
+     * @param rootBT корень дерева поведения
      */
-    public StrategyBT() {
+    public StrategyBT(Object ownObject, BTNode rootBT) {
+    	super(ownObject);
+    	this.rootBT = rootBT;
     }
 
     /**
-     * 
+     * Корень дерева поведения.
      */
     private BTNode rootBT;
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
+		this.rootBT.execute(this.getOwnObject());
 	}
 
 
