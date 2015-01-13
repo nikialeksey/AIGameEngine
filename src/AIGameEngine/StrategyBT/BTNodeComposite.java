@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 
+import AIGameEngine.Object;
+
 /**
  * Составной элемент дерева поведения.
  * @author Alexey Nikitin

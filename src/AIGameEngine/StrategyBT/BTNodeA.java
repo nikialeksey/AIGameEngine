@@ -2,6 +2,8 @@ package AIGameEngine.StrategyBT;
 
 import java.util.function.Function;
 
+import AIGameEngine.Object;
+
 /**
  * Элемент дерева поведения, который выполняет все своидочерние вершины.
  */
@@ -26,7 +28,8 @@ public class BTNodeA extends BTNodeComposite {
 	 */
 	@Override
 	public boolean execute(Object object) {
-		if (!this.getConditionResult(object)) return false;
+		if (!this.getConditionResult(object))
+			return false;
 		this.getChildNodes().forEach(nodeBT -> nodeBT.execute(object));
 		return true;
 	}

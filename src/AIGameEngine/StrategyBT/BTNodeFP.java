@@ -2,6 +2,8 @@ package AIGameEngine.StrategyBT;
 
 import java.util.function.Function;
 
+import AIGameEngine.Object;
+
 /**
  * Элемент дерева поведения. Выполняет попорядку все свои дочернии вершины, если
  * условие этой вершины истинно, до тех пор, пока не обнаружится первая успешная

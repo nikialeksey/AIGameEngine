@@ -3,6 +3,7 @@ package AIGameEngine.StrategyBT;
 import java.util.List;
 import java.util.function.Function;
 
+import AIGameEngine.Object;
 /**
  * Элемент дерева поведения. Необходим для создания самого дерева поведения.
  * Каждый такой элемент содержит условие выполения этого элемента.

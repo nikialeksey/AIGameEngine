@@ -110,4 +110,11 @@ public abstract class Object {
 	 */
 	public abstract boolean getConditionResult(int conditionEvent);
 
+	/**
+	 * Выполняет один тик стратегии.
+	 */
+	public void run() {
+		this.strategy.execute(this);
+	}
+
 }

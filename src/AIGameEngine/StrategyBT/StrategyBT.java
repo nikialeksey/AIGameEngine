@@ -13,13 +13,11 @@ import AIGameEngine.Strategy;
 public class StrategyBT extends Strategy {
 
     /**
-     *  онструктор инициализирует ссылку на объект, владеющий стратегией и
-     * ссылку на корень дерева поведени€.
+     *  онструктор инициализирует ссылку на корень дерева поведени€.
      * @param ownObject владелец стратегией
      * @param rootBT корень дерева поведени€
      */
-    public StrategyBT(Object ownObject, BTNode rootBT) {
-    	super(ownObject);
+    public StrategyBT(BTNode rootBT) {
     	this.rootBT = rootBT;
     }
 
@@ -29,8 +27,8 @@ public class StrategyBT extends Strategy {
     private BTNode rootBT;
 
 	@Override
-	public void execute() {
-		this.rootBT.execute(this.getOwnObject());
+	public void execute(Object object) {
+		this.rootBT.execute(object);
 	}
 
 

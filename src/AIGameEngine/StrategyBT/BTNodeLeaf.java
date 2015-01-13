@@ -4,6 +4,8 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import AIGameEngine.Object;
+
 /**
  * Ёлемент дерева поведени€. Ќе может иметь дочерних вершин. —одержит в себе
  * список действий, которые примен€ютс€ к объекту.

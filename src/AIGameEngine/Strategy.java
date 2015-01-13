@@ -6,34 +6,8 @@ package AIGameEngine;
 public abstract class Strategy {
 
     /**
-     * Инициализирует ссылку на объект, владеющей этой стратегией.
-     * @param ownObject объект, владеющей данной стратегией 
-     */
-    public Strategy(Object ownObject) {
-    	this.ownObject = ownObject;
-    }
-
-    /**
-     * Ссылка на объект, владеющей этой стратегией.
-     */
-    private final Object ownObject;
-
-
-
-
-
-
-    /**
      * Выполняет стратегию.
+     * @param object владелец стратегии
      */
-    public abstract void execute();
-
-    /**
-     * Возвращает объект, владеющей данной стратегией.
-     * @return объект, владеющий данной стратегией
-     */
-    public Object getOwnObject() {
-    	return this.ownObject;
-    }
-
+    public abstract void execute(Object object);
 }
