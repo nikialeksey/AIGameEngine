@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import AIGameEngine.Object;
+
 /**
  * Элемент дерева поведения. Необходим для создания самого дерева поведения.
  * Каждый такой элемент содержит условие выполения этого элемента.
@@ -17,6 +18,9 @@ public abstract class BTNode {
 	/**
 	 * Конструктор. Инициализирует ссылкой на функцию функцию условия, и
 	 * инициализирует список дочерних вершин.
+	 * 
+	 * @param condition
+	 *            функция условия для данного элемента
 	 */
 	public BTNode(Function<Object, Boolean> condition) {
 		this.condition = condition;
