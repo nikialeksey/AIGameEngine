@@ -23,6 +23,7 @@ public class BTNodeLeaf extends BTNode {
 	 */
 	public BTNodeLeaf(Function<Object, Boolean> condition) {
 		super(condition);
+		this.actions = new LinkedList<Consumer<Object>>();
 	}
 
 	/**

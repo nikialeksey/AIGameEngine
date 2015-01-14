@@ -114,7 +114,8 @@ public abstract class Object {
 	 * Выполняет один тик стратегии.
 	 */
 	public void run() {
-		this.strategy.execute(this);
+		if (this.strategy != null)
+			this.strategy.execute(this);
 	}
 
 }
