@@ -14,7 +14,6 @@ public class StrategyBT extends Strategy {
 
     /**
      * Конструктор инициализирует ссылку на корень дерева поведения.
-     * @param ownObject владелец стратегией
      * @param rootBT корень дерева поведения
      */
     public StrategyBT(BTNode rootBT) {
