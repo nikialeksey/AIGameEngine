@@ -27,16 +27,17 @@ package org.nikialeksey.gameengine.ai.behaviortree;
 import java.util.ArrayList;
 
 /**
- * Класс представляет композит-последовательность с запоминанием вершины, которая вернула результат RUNNING.
+ * Класс представляет композит-селектор с запоминанием вершины, которая вернула результат RUNNING.
  * На следующем тике данная вершина начнет давать сигнал на исполнение как раз последней запущенной
  * дочерней вершне, а не с начала спика дочерних вершин.
  * @author Alexey Nikitin
  */
-public class MemSequence extends Node {
+public class MemSelector extends Node {
 
-    public MemSequence(Node... nodes) {
+    public MemSelector(Node... nodes) {
         super(nodes);
     }
+
     @Override
     public void enter(Tick tick) {
 
@@ -48,12 +49,12 @@ public class MemSequence extends Node {
     }
 
     /**
-     * Передает сигнал на исполнение дочерним вершинам до тех пор, пока они возвращают статус SUCCESS. Как только
-     * дочерняя вершина вернет статус, отличный от SUCCESS, этот статус будет сразу возращен этой вершиной и выполнение
+     * Передает сигнал на исполнение дочерним вершинам до тех пор, пока они возвращают статус FAILURE. Как только
+     * дочерняя вершина вернет статус, отличный от FAILURE, этот статус будет сразу возращен этой вершиной и выполнение
      * закончится. Если это был статус RUNNING, то в таком случае будет запомнен в blackboard индекс данной дочерней
      * вершины и в следующий раз передача сигнала на исполнение продолжится именно с этой вершины.
      * @param tick объект тика
-     * @return либо статус дочерней вершины, которая вернула результат, отличный от SUCCESS, либо SUCCESS
+     * @return либо статус дочерней вершины, которая вернула результат, отличный от FAILURE, либо FAILURE
      */
     @Override
     public Status tick(Tick tick) {
@@ -63,7 +64,7 @@ public class MemSequence extends Node {
             Node child = children.get(i);
             Status status = child.btExecute(tick);
 
-            if (status != Status.SUCCESS) {
+            if (status != Status.FAILURE) {
                 if (status == Status.RUNNING) {
                     tick.getBlackboard().put("runningChild", i, tick.getBehaviorTree().getUUID(), this.getUUID());
                 }
@@ -71,7 +72,7 @@ public class MemSequence extends Node {
             }
         }
 
-        return Status.SUCCESS;
+        return Status.FAILURE;
     }
 
     @Override
