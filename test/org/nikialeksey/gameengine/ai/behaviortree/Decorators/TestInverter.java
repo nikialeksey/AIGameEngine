@@ -22,31 +22,21 @@
  * SOFTWARE.
  */
 
-package org.nikialeksey.gameengine.ai.behaviortree;
+package org.nikialeksey.gameengine.ai.behaviortree.Decorators;
 
-import java.util.UUID;
+import junit.framework.TestCase;
+import org.junit.Test;
+import org.nikialeksey.gameengine.ai.behaviortree.Blackboard;
+import org.nikialeksey.gameengine.ai.behaviortree.Node;
 
 /**
- *
  * @author Alexey Nikitin
  */
-public class BehaviorTree {
+public class TestInverter extends TestCase {
 
-    private Node root;
-    private String uuid;
-
-    public BehaviorTree(Node root) {
-        this.uuid = UUID.randomUUID().toString();
-        this.root = root;
+    @Test
+    private void testInverter1() {
+        Blackboard blackboard = new Blackboard();
+//        Node root = new Inverter(new )
     }
-
-    public Status execute(Blackboard blackboard) {
-        Tick tick = new Tick(this, blackboard);
-
-        return this.root.execute(tick);
-
-    }
-
-    public String getUUID() {return this.uuid;}
-
 }

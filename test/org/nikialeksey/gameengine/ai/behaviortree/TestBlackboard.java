@@ -24,29 +24,43 @@
 
 package org.nikialeksey.gameengine.ai.behaviortree;
 
+import junit.framework.TestCase;
+import org.junit.Test;
+
 import java.util.UUID;
 
 /**
- *
  * @author Alexey Nikitin
  */
-public class BehaviorTree {
+public class TestBlackboard extends TestCase {
 
-    private Node root;
-    private String uuid;
+    @Test
+    public void testBlackBoardPut1() {
+        Blackboard blackboard = new Blackboard();
+        blackboard.put("key", "value");
+        String value = (String) blackboard.get("key");
 
-    public BehaviorTree(Node root) {
-        this.uuid = UUID.randomUUID().toString();
-        this.root = root;
+        assertEquals(value, "value");
     }
 
-    public Status execute(Blackboard blackboard) {
-        Tick tick = new Tick(this, blackboard);
+    @Test
+    public void testBlackBoardPut2() {
+        Blackboard blackboard = new Blackboard();
+        String treeUUID = UUID.randomUUID().toString();
+        blackboard.put("key", "value", treeUUID);
+        String value = (String) blackboard.get("key", treeUUID);
 
-        return this.root.execute(tick);
-
+        assertEquals(value, "value");
     }
 
-    public String getUUID() {return this.uuid;}
+    @Test
+    public void testBlackBoardPut3() {
+        Blackboard blackboard = new Blackboard();
+        String treeUUID = UUID.randomUUID().toString();
+        String nodeUUID = UUID.randomUUID().toString();
+        blackboard.put("key", "value", treeUUID, nodeUUID);
+        String value = (String) blackboard.get("key", treeUUID, nodeUUID);
 
+        assertEquals(value, "value");
+    }
 }

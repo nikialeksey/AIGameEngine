@@ -75,13 +75,27 @@ public class Blackboard {
         treeMemory = new HashMap<String, TreeMemory>();
     }
 
+    private BlackboardMemory getMemory() {
+        return baseMemory;
+    }
+
+    private TreeMemory getMemory(String treeUUID) {
+        if (!treeMemory.containsKey(treeUUID))
+            treeMemory.put(treeUUID, new TreeMemory());
+        return treeMemory.get(treeUUID);
+    }
+
+    private BlackboardMemory getMemory(String treeUUID, String nodeUUID) {
+        return getMemory(treeUUID).getMemory(nodeUUID);
+    }
+
     /**
      * Возвращает объект из глобальной памяти.
      * @param key ключ
      * @return объект из глобальной памяти
      */
     public Object get(String key) {
-        return baseMemory.get(key);
+        return this.getMemory().get(key);
     }
 
     /**
@@ -91,10 +105,7 @@ public class Blackboard {
      * @return объект из памяти дерева с идентификатором {@code treeUUID}.
      */
     public Object get(String key, String treeUUID) {
-        if (!treeMemory.containsKey(treeUUID)) {
-            treeMemory.put(treeUUID, new TreeMemory());
-        }
-        return treeMemory.get(treeUUID).get(key);
+        return getMemory(treeUUID).get(key);
     }
 
     /**
@@ -105,7 +116,7 @@ public class Blackboard {
      * @return объект из вершины дерева
      */
     public Object get(String key, String treeUUID, String nodeUUID) {
-        return treeMemory.get(treeUUID).get(key, nodeUUID);
+        return getMemory(treeUUID, nodeUUID).get(key);
     }
 
     /**
@@ -114,7 +125,7 @@ public class Blackboard {
      * @param value объект
      */
     public void put(String key, Object value) {
-        baseMemory.put(key, value);
+        getMemory().put(key, value);
     }
 
     /**
@@ -124,7 +135,7 @@ public class Blackboard {
      * @param treeUUID уникальный идентмификатор дерева
      */
     public void put(String key, Object value, String treeUUID) {
-        treeMemory.get(treeUUID).put(key, value);
+        getMemory(treeUUID).put(key, value);
     }
 
     /**
@@ -135,7 +146,7 @@ public class Blackboard {
      * @param nodeUUID уникальный идентификатор вершины
      */
     public void put(String key, Object value, String treeUUID, String nodeUUID) {
-        treeMemory.get(treeUUID).put(key, value, nodeUUID);
+        getMemory(treeUUID, nodeUUID).put(key, value);
     }
 
     /**
@@ -152,13 +163,23 @@ public class Blackboard {
             openNodes = new ArrayList<Object>();
         }
 
+        private BlackboardMemory getMemory() {
+            return localMemory;
+        }
+
+        private BlackboardMemory getMemory(String nodeUUID) {
+            if (!nodeMemory.containsKey(nodeUUID))
+                nodeMemory.put(nodeUUID, new BlackboardMemory());
+            return nodeMemory.get(nodeUUID);
+        }
+
         /**
          * Возвращает объект дерева.
          * @param key ключ
          * @return объект дерева
          */
         public Object get(String key) {
-            return localMemory.get(key);
+            return getMemory().get(key);
         }
 
         /**
@@ -168,9 +189,7 @@ public class Blackboard {
          * @return объект из вершины данного дерева
          */
         public Object get(String key, String nodeUUID) {
-            if (!nodeMemory.containsKey(nodeUUID))
-                nodeMemory.put(nodeUUID, new BlackboardMemory());
-            return nodeMemory.get(nodeUUID).get(key);
+            return getMemory(nodeUUID).get(key);
         }
 
         /**
@@ -179,7 +198,7 @@ public class Blackboard {
          * @param value объект
          */
         public void put(String key, Object value) {
-            this.localMemory.put(key, value);
+            getMemory().put(key, value);
         }
 
         /**
@@ -189,7 +208,7 @@ public class Blackboard {
          * @param nodeUUID уникальный идентификатор вершины
          */
         public void put(String key, Object value, String nodeUUID) {
-            this.nodeMemory.get(nodeUUID).put(key, value);
+            getMemory(nodeUUID).put(key, value);
         }
     }
 
