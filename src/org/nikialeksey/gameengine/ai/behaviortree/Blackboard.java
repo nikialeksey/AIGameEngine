@@ -76,33 +76,36 @@ public class Blackboard {
     }
 
     /**
-     * Возвращает глобальную память.
-     * @return глобальную память
+     * Возвращает объект из глобальной памяти.
+     * @param key ключ
+     * @return объект из глобальной памяти
      */
-    public BlackboardMemory get() {
-        return baseMemory;
+    public Object get(String key) {
+        return baseMemory.get(key);
     }
 
     /**
-     * Возвращает объект памяти для дерева с идентификатором {@code treeUUID}.
+     * Возвращает объект из памяти дерева с идентификатором {@code treeUUID}.
+     * @param key ключ
      * @param treeUUID уникальный идентификатор дерева
-     * @return объект памяти для дерева {@code TreeMemory} с идентификатором {@code treeUUID}
+     * @return объект из памяти дерева с идентификатором {@code treeUUID}.
      */
-    public TreeMemory get(String treeUUID) {
+    public Object get(String key, String treeUUID) {
         if (!treeMemory.containsKey(treeUUID)) {
             treeMemory.put(treeUUID, new TreeMemory());
         }
-        return treeMemory.get(treeUUID);
+        return treeMemory.get(treeUUID).get(key);
     }
 
     /**
-     * Возвращает объект памяти для вершины дерева.
+     * Возвращает объект из вершины дерева.
+     * @param key ключ
      * @param treeUUID уникальный идентификатор дерева
      * @param nodeUUID уникальный идентификатор вершины
-     * @return объект памяти для вершины дерева
+     * @return объект из вершины дерева
      */
-    public BlackboardMemory get(String treeUUID, String nodeUUID) {
-        return this.get(treeUUID).get(nodeUUID);
+    public Object get(String key, String treeUUID, String nodeUUID) {
+        return treeMemory.get(treeUUID).get(key, nodeUUID);
     }
 
     /**
@@ -111,7 +114,7 @@ public class Blackboard {
      * @param value объект
      */
     public void put(String key, Object value) {
-        this.get().put(key, value);
+        baseMemory.put(key, value);
     }
 
     /**
@@ -121,7 +124,7 @@ public class Blackboard {
      * @param treeUUID уникальный идентмификатор дерева
      */
     public void put(String key, Object value, String treeUUID) {
-        this.get(treeUUID).put(key, value);
+        treeMemory.get(treeUUID).put(key, value);
     }
 
     /**
@@ -132,7 +135,7 @@ public class Blackboard {
      * @param nodeUUID уникальный идентификатор вершины
      */
     public void put(String key, Object value, String treeUUID, String nodeUUID) {
-        this.get(treeUUID, nodeUUID).put(key, value);
+        treeMemory.get(treeUUID).put(key, value, nodeUUID);
     }
 
     /**
@@ -150,31 +153,33 @@ public class Blackboard {
         }
 
         /**
-         * Возвращает объект памяти дерева.
-         * @return объект памяти дерева
+         * Возвращает объект дерева.
+         * @param key ключ
+         * @return объект дерева
          */
-        public BlackboardMemory get() {
-            return localMemory;
+        public Object get(String key) {
+            return localMemory.get(key);
         }
 
         /**
-         * Возвращает объект памяти вершины данного дерева.
+         * Возвращает объект из вершины данного дерева.
+         * @param key ключ
          * @param nodeUUID уникальный идентификатор вершины
-         * @return объект памяти вершины дерева
+         * @return объект из вершины данного дерева
          */
-        public BlackboardMemory get(String nodeUUID) {
+        public Object get(String key, String nodeUUID) {
             if (!nodeMemory.containsKey(nodeUUID))
                 nodeMemory.put(nodeUUID, new BlackboardMemory());
-            return nodeMemory.get(nodeUUID);
+            return nodeMemory.get(nodeUUID).get(key);
         }
 
         /**
-         * Кладет объект в памяти дерева.
+         * Кладет объект в память дерева.
          * @param key ключ
          * @param value объект
          */
         public void put(String key, Object value) {
-            this.get().put(key, value);
+            this.localMemory.put(key, value);
         }
 
         /**
@@ -184,7 +189,7 @@ public class Blackboard {
          * @param nodeUUID уникальный идентификатор вершины
          */
         public void put(String key, Object value, String nodeUUID) {
-            this.get(nodeUUID).put(key, value);
+            this.nodeMemory.get(nodeUUID).put(key, value);
         }
     }
 
