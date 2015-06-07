@@ -54,7 +54,6 @@ public class Tick {
     }
 
     public void enterNode(Node node) {
-
     }
 
     public void openNode(Node node) {

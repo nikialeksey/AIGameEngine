@@ -25,7 +25,9 @@
 package org.nikialeksey.gameengine.ai.behaviortree.Composites;
 
 import junit.framework.TestCase;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.nikialeksey.gameengine.ai.behaviortree.Actions.UserAction;
 import org.nikialeksey.gameengine.ai.behaviortree.Actions.Wait;
 import org.nikialeksey.gameengine.ai.behaviortree.BehaviorTree;
 import org.nikialeksey.gameengine.ai.behaviortree.Blackboard;
@@ -40,11 +42,37 @@ public class TestSelector extends TestCase {
 
     @Test
     public void testSelector1() {
-//        Blackboard blackboard = new Blackboard();
-//        Node root = new Selector(new AlwaysFailure(), new AlwaysSuccess(), new AlwaysFailure());
-//        BehaviorTree behaviorTree = new BehaviorTree(root);
-//
-//        Status status = behaviorTree.execute(blackboard);
-//        assertEquals(Status.FAILURE, status);
+        Blackboard blackboard = new Blackboard();
+        Node root = new Selector(
+                new AlwaysFailure(new UserAction(tick -> {})),
+                new AlwaysSuccess(new UserAction(tick -> {})),
+                new AlwaysFailure(new UserAction(tick -> tick.getBlackboard().put("key", "value")))
+        );
+        BehaviorTree behaviorTree = new BehaviorTree(root);
+
+        Status status = behaviorTree.execute(blackboard);
+
+        String value = (String) blackboard.get("key");
+        assertEquals(null, value);
+    }
+
+
+    @Test
+    public void testSelector2() {
+        Blackboard blackboard = new Blackboard();
+        Node root = new Selector(
+                new AlwaysFailure(new UserAction(tick -> {
+                    tick.getBlackboard().put("key", "value");
+                })),
+                new AlwaysSuccess(new UserAction(tick -> {
+                })),
+                new AlwaysFailure(new UserAction(tick -> tick.getBlackboard().put("key", null)))
+        );
+        BehaviorTree behaviorTree = new BehaviorTree(root);
+
+        Status status = behaviorTree.execute(blackboard);
+
+        String value = (String) blackboard.get("key");
+        assertEquals("value", value);
     }
 }

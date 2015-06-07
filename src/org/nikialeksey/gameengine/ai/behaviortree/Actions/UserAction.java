@@ -22,24 +22,29 @@
  * SOFTWARE.
  */
 
-package org.nikialeksey.gameengine.ai.behaviortree.Decorators;
+package org.nikialeksey.gameengine.ai.behaviortree.Actions;
 
 import org.nikialeksey.gameengine.ai.behaviortree.Node;
 import org.nikialeksey.gameengine.ai.behaviortree.Status;
 import org.nikialeksey.gameengine.ai.behaviortree.Tick;
 
+import java.util.function.Consumer;
+
 /**
- * Класс представляет декоратор, который всегда возвращает статус SUCCESS.
+ * Класс представляет лист-действие, определяемое пользователем.
  * @author Alexey Nikitin
  */
-public class AlwaysSuccess extends Node {
+public class UserAction extends Node {
+
+    private Consumer<Tick> action;
 
     /**
      * Конструктор.
-     * @param node дочерняя вершина
+     * @param action дейстие, определяемое пользователем
      */
-    public AlwaysSuccess(Node node) {
-        super(node);
+    public UserAction(Consumer<Tick> action) {
+        super();
+        this.action = action;
     }
 
     @Override
@@ -53,20 +58,13 @@ public class AlwaysSuccess extends Node {
     }
 
     /**
-     * Передает сигнал на исполнение дочерней вершине, всегда возвращает сигнал SUCCESS
+     * Выполняет пользовательское действие и возвращает SUCCESS.
      * @param tick объект тика
      * @return SUCCESS
      */
     @Override
     public Status tick(Tick tick) {
-        if (this.getChildren().isEmpty())
-            return Status.SUCCESS;
-
-        Node child = this.getChildren().get(0);
-        if (child == null)
-            return Status.SUCCESS;
-
-        child.execute(tick);
+        this.action.accept(tick);
 
         return Status.SUCCESS;
     }

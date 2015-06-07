@@ -66,7 +66,7 @@ public class AlwaysFailure extends Node {
         if (child == null)
             return Status.FAILURE;
 
-        child.exit(tick);
+        child.execute(tick);
 
         return Status.FAILURE;
     }
