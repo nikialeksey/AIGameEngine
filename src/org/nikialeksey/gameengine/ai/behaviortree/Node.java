@@ -70,7 +70,10 @@ public abstract class Node {
     protected Status btExecute(Tick tick) {
         this.btEnter(tick);
 
-        this.btOpen(tick);
+        Boolean isOpen = (Boolean)tick.getBlackboard().get("isOpen", tick.getBehaviorTree().getUUID(), this.getUUID());
+        if (isOpen == null || !isOpen) {
+            this.btOpen(tick);
+        }
 
         Status status = this.btTick(tick);
 
