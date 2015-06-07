@@ -28,5 +28,5 @@ package org.nikialeksey.gameengine.ai.behaviortree;
  * @author Alexey Nikitin
  */
 public enum Status {
-    RUNNING, WAIT, FAILURE, SUCCESS
+    RUNNING, ERROR, FAILURE, SUCCESS
 }
