@@ -25,11 +25,24 @@
 package org.nikialeksey.gameengine.ai.behaviortree;
 
 /**
+ *
  * @author Alexey Nikitin
  */
 public class BehaviorTree {
 
+    private Node root;
     private String uuid;
+
+    public BehaviorTree(Node root) {
+        this.root = root;
+    }
+
+    public void execute(Blackboard blackboard) {
+        Tick tick = new Tick(this, blackboard);
+
+        this.root.btExecute(tick);
+
+    }
 
     public String getUUID() {return this.uuid;}
 

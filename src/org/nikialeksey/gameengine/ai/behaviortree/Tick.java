@@ -27,7 +27,11 @@ package org.nikialeksey.gameengine.ai.behaviortree;
 import java.util.Stack;
 
 /**
+ * Класс содержит ссылки на blackboard и behaviorTree.
+ * Используется, когда сигнал на исполнение поступает в дерево поведения и пробрасывается дочерним вершинам, чтобы
+ * дочерние вершины могли пользоваться blackboard'ом.
  *
+ * Так же удобно здесь писать отладочный код.
  * @author Alexey Nikitin
  */
 public class Tick {
@@ -50,11 +54,11 @@ public class Tick {
     }
 
     public void enterNode(Node node) {
-        openNodes.push(node);
+
     }
 
     public void openNode(Node node) {
-
+        this.openNodes.push(node);
     }
 
     public void tickNode(Node node) {

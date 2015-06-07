@@ -29,6 +29,8 @@ import java.util.Collections;
 import java.util.UUID;
 
 /**
+ * Абстрактный класс вершины дерева повдения.
+ * Содержит необходимые методы для выполнения логики вершины.
  * @author Alexey Nikitin
  */
 public abstract class Node {
@@ -36,18 +38,35 @@ public abstract class Node {
     private String uuid;
     private ArrayList<Node> children;
 
+    /**
+     * Конструктор.
+     * @param nodes дочерние вершины
+     */
     public Node(Node... nodes) {
         this.uuid = UUID.randomUUID().toString();
         this.children = new ArrayList<Node>(nodes.length);
         Collections.addAll(children, nodes);
     }
 
+    /**
+     * Возвращает список дочерних вершин
+     * @return список дочерних вершин
+     */
     public ArrayList<Node> getChildren() {
         return this.children;
     }
 
+    /**
+     * Возвращает уникальный идентификатор вершины
+     * @return уникальный идентификатор вершины
+     */
     public String getUUID(){return this.uuid;}
 
+    /**
+     * Выполняет логику вершины
+     * @param tick объект тика
+     * @return статус, после выполнения логики
+     */
     public Status btExecute(Tick tick) {
         this.btEnter(tick);
 
@@ -91,9 +110,37 @@ public abstract class Node {
         this.exit(tick);
     }
 
+    /**
+     * Вызывается, при осуществлении входа в вершину
+     * @param tick объект тика
+     */
     public abstract void enter(Tick tick);
+
+    /**
+     * Вызывается, при осуществлении открытия вершины (всегда после входа, но не всегда открытая вершина закрывается
+     * после выполнения логики)
+     * @param tick объект тика
+     */
     public abstract void open(Tick tick);
+
+    /**
+     * Содержит код логики вершины, после отработки возвращает один из четырех статусов: RUNNING, WAIT, FAILURE, SUCCESS
+     * @param tick объект тика
+     * @return один из четырех статусов: RUNNING, WAIT, FAILURE, SUCCESS
+     */
     public abstract Status tick(Tick tick);
+
+    /**
+     * Вызывается, при осуществлении закрытия вершины (не вызывается после выполнении логики,
+     * если статус {@code RUNNING})
+     * @param tick объект тика
+     */
     public abstract void close(Tick tick);
+
+    /**
+     * Вызывается, при осуществлении выхода из вершины (всегда после выполнения логики, но позже
+     * закрытия вершины, если оно было)
+     * @param tick объект тика
+     */
     public abstract void exit(Tick tick);
 }
