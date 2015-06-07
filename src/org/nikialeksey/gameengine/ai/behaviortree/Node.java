@@ -63,11 +63,11 @@ public abstract class Node {
     public String getUUID(){return this.uuid;}
 
     /**
-     * Выполняет логику вершины
+     * Выполняет логику вершины.
      * @param tick объект тика
      * @return статус, после выполнения логики
      */
-    public Status btExecute(Tick tick) {
+    protected Status btExecute(Tick tick) {
         this.btEnter(tick);
 
         this.btOpen(tick);
@@ -83,29 +83,29 @@ public abstract class Node {
         return status;
     }
 
-    public void btEnter(Tick tick) {
+    private void btEnter(Tick tick) {
         tick.enterNode(this);
         this.enter(tick);
     }
 
-    public void btOpen(Tick tick) {
+    private void btOpen(Tick tick) {
         tick.openNode(this);
         tick.getBlackboard().put("isOpen", true, tick.getBehaviorTree().getUUID(), this.getUUID());
         this.open(tick);
     }
 
-    public Status btTick(Tick tick) {
+    private Status btTick(Tick tick) {
         tick.tickNode(this);
         return this.tick(tick);
     }
 
-    public void btClose(Tick tick) {
+    private void btClose(Tick tick) {
         tick.closeNode(this);
         tick.getBlackboard().put("isOpen", false, tick.getBehaviorTree().getUUID(), this.getUUID());
         this.close(tick);
     }
 
-    public void btExit(Tick tick) {
+    private void btExit(Tick tick) {
         tick.exitNode(this);
         this.exit(tick);
     }
