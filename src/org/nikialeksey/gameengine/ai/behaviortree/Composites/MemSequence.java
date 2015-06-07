@@ -22,26 +22,29 @@
  * SOFTWARE.
  */
 
-package org.nikialeksey.gameengine.ai.behaviortree;
+package org.nikialeksey.gameengine.ai.behaviortree.Composites;
+
+import org.nikialeksey.gameengine.ai.behaviortree.Node;
+import org.nikialeksey.gameengine.ai.behaviortree.Status;
+import org.nikialeksey.gameengine.ai.behaviortree.Tick;
 
 import java.util.ArrayList;
 
 /**
- * Класс представляет композит-селектор с запоминанием вершины, которая вернула результат RUNNING.
+ * Класс представляет композит-последовательность с запоминанием вершины, которая вернула результат RUNNING.
  * На следующем тике данная вершина начнет давать сигнал на исполнение как раз последней запущенной
  * дочерней вершне, а не с начала спика дочерних вершин.
  * @author Alexey Nikitin
  */
-public class MemSelector extends Node {
+public class MemSequence extends Node {
 
     /**
      * Конструктор.
      * @param nodes список дочеирних вершин
      */
-    public MemSelector(Node... nodes) {
+    public MemSequence(Node... nodes) {
         super(nodes);
     }
-
     @Override
     public void enter(Tick tick) {
 
@@ -53,12 +56,12 @@ public class MemSelector extends Node {
     }
 
     /**
-     * Передает сигнал на исполнение дочерним вершинам до тех пор, пока они возвращают статус FAILURE. Как только
-     * дочерняя вершина вернет статус, отличный от FAILURE, этот статус будет сразу возращен этой вершиной и выполнение
+     * Передает сигнал на исполнение дочерним вершинам до тех пор, пока они возвращают статус SUCCESS. Как только
+     * дочерняя вершина вернет статус, отличный от SUCCESS, этот статус будет сразу возращен этой вершиной и выполнение
      * закончится. Если это был статус RUNNING, то в таком случае будет запомнен в blackboard индекс данной дочерней
      * вершины и в следующий раз передача сигнала на исполнение продолжится именно с этой вершины.
      * @param tick объект тика
-     * @return либо статус дочерней вершины, которая вернула результат, отличный от FAILURE, либо FAILURE
+     * @return либо статус дочерней вершины, которая вернула результат, отличный от SUCCESS, либо SUCCESS
      */
     @Override
     public Status tick(Tick tick) {
@@ -66,9 +69,9 @@ public class MemSelector extends Node {
         Integer startIndex = (Integer)tick.getBlackboard().get("runningChild", tick.getBehaviorTree().getUUID(), this.getUUID());
         for (int i = startIndex == null ? 0 : startIndex; i < children.size(); i++) {
             Node child = children.get(i);
-            Status status = child.btExecute(tick);
+            Status status = child.execute(tick);
 
-            if (status != Status.FAILURE) {
+            if (status != Status.SUCCESS) {
                 if (status == Status.RUNNING) {
                     tick.getBlackboard().put("runningChild", i, tick.getBehaviorTree().getUUID(), this.getUUID());
                 }
@@ -76,7 +79,7 @@ public class MemSelector extends Node {
             }
         }
 
-        return Status.FAILURE;
+        return Status.SUCCESS;
     }
 
     @Override

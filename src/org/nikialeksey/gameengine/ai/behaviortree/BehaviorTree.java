@@ -43,7 +43,7 @@ public class BehaviorTree {
     public void execute(Blackboard blackboard) {
         Tick tick = new Tick(this, blackboard);
 
-        this.root.btExecute(tick);
+        this.root.execute(tick);
 
     }
 

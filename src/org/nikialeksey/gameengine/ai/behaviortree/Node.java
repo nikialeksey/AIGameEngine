@@ -67,7 +67,7 @@ public abstract class Node {
      * @param tick объект тика
      * @return статус, после выполнения логики
      */
-    protected Status btExecute(Tick tick) {
+    public Status execute(Tick tick) {
         this.btEnter(tick);
 
         Boolean isOpen = (Boolean)tick.getBlackboard().get("isOpen", tick.getBehaviorTree().getUUID(), this.getUUID());

@@ -22,7 +22,11 @@
  * SOFTWARE.
  */
 
-package org.nikialeksey.gameengine.ai.behaviortree;
+package org.nikialeksey.gameengine.ai.behaviortree.Composites;
+
+import org.nikialeksey.gameengine.ai.behaviortree.Node;
+import org.nikialeksey.gameengine.ai.behaviortree.Status;
+import org.nikialeksey.gameengine.ai.behaviortree.Tick;
 
 /**
  * Класс представляет параллельный композит.
@@ -69,7 +73,7 @@ public class Parallel extends Node {
         int currentSuccessCount = 0,
                 currentFailureCount = 0;
         for (Node child: this.getChildren()) {
-            Status status = child.btExecute(tick);
+            Status status = child.execute(tick);
             if (status == Status.SUCCESS)
                 currentSuccessCount++;
             else if (status == Status.FAILURE)

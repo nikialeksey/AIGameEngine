@@ -22,20 +22,24 @@
  * SOFTWARE.
  */
 
-package org.nikialeksey.gameengine.ai.behaviortree;
+package org.nikialeksey.gameengine.ai.behaviortree.Composites;
+
+import org.nikialeksey.gameengine.ai.behaviortree.Node;
+import org.nikialeksey.gameengine.ai.behaviortree.Status;
+import org.nikialeksey.gameengine.ai.behaviortree.Tick;
 
 /**
- * Класс представляет композит-последовательность.
- * Выполняет всех своих детей до тех пор, пока они возвращают SUCCESS
+ * Класс представляет композит-селектор.
+ * Выполняет все свои дочерние вершины по порядку, до тех пор, пока они возвращают результат FAILURE
  * @author Alexey Nikitin
  */
-public class Sequence extends Node {
+public class Selector extends Node {
 
     /**
      * Конструктор.
      * @param nodes список дочеирних вершин
      */
-    public Sequence(Node... nodes) {
+    public Selector(Node... nodes) {
         super(nodes);
     }
 
@@ -50,20 +54,20 @@ public class Sequence extends Node {
     }
 
     /**
-     * Передает сигнал на исполнение всем своим дочерним вершинам до тех пор, пока они возвращают SUCCESS
+     * Передает сигнал на исполнение всем дочерним вершинам, до тех пор пока они возвращают FAILURE
      * @param tick объект тика
-     * @return либо статус дочерней вершины, которая вернула результат, отличный от SUCCESS, либо SUCCESS
+     * @return либо статус той вершины, которая вернула результат, отличный от FAILURE, либо FAILURE
      */
     @Override
     public Status tick(Tick tick) {
         for (Node child: this.getChildren()) {
-            Status status = child.btExecute(tick);
+            Status status = child.execute(tick);
 
-            if (status != Status.SUCCESS)
+            if (status != Status.FAILURE)
                 return status;
         }
 
-        return Status.SUCCESS;
+        return Status.FAILURE;
     }
 
     @Override

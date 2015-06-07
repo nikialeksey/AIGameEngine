@@ -22,21 +22,23 @@
  * SOFTWARE.
  */
 
-package org.nikialeksey.gameengine.ai.behaviortree;
+package org.nikialeksey.gameengine.ai.behaviortree.Decorators;
+
+import org.nikialeksey.gameengine.ai.behaviortree.Node;
+import org.nikialeksey.gameengine.ai.behaviortree.Status;
+import org.nikialeksey.gameengine.ai.behaviortree.Tick;
 
 /**
- * Класс представляет композит-селектор.
- * Выполняет все свои дочерние вершины по порядку, до тех пор, пока они возвращают результат FAILURE
+ * Представляет декоратор инвертер.
  * @author Alexey Nikitin
  */
-public class Selector extends Node {
-
+public class Inverter extends Node {
     /**
      * Конструктор.
-     * @param nodes список дочеирних вершин
+     * @param node дочерняя вершина
      */
-    public Selector(Node... nodes) {
-        super(nodes);
+    public Inverter(Node node) {
+        super(node);
     }
 
     @Override
@@ -50,20 +52,28 @@ public class Selector extends Node {
     }
 
     /**
-     * Передает сигнал на исполнение всем дочерним вершинам, до тех пор пока они возвращают FAILURE
+     * Передает сигнал на исполнение дочерней вершине.
      * @param tick объект тика
-     * @return либо статус той вершины, которая вернула результат, отличный от FAILURE, либо FAILURE
+     * @return SUCCESS, если дочерняя вершина вернула результат FAILURE; FAILURE, если дочерняя
+     * вершина вернула результат SUCCESS; иначе тот результат, который вернула дочерняя вершина.
      */
     @Override
     public Status tick(Tick tick) {
-        for (Node child: this.getChildren()) {
-            Status status = child.btExecute(tick);
+        if (this.getChildren().isEmpty())
+            return Status.ERROR;
 
-            if (status != Status.FAILURE)
-                return status;
-        }
+        Node child = this.getChildren().get(0);
+        if (child == null)
+            return Status.ERROR;
 
-        return Status.FAILURE;
+        Status status = child.execute(tick);
+
+        if (status == Status.FAILURE)
+            status = Status.SUCCESS;
+        else if (status == Status.SUCCESS)
+            status = Status.FAILURE;
+
+        return status;
     }
 
     @Override
