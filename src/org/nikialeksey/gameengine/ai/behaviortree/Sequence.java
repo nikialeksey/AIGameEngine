@@ -31,6 +31,10 @@ package org.nikialeksey.gameengine.ai.behaviortree;
  */
 public class Sequence extends Node {
 
+    /**
+     * Конструктор.
+     * @param nodes список дочеирних вершин
+     */
     public Sequence(Node... nodes) {
         super(nodes);
     }

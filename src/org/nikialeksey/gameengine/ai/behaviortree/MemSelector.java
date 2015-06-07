@@ -34,6 +34,10 @@ import java.util.ArrayList;
  */
 public class MemSelector extends Node {
 
+    /**
+     * Конструктор.
+     * @param nodes список дочеирних вершин
+     */
     public MemSelector(Node... nodes) {
         super(nodes);
     }

@@ -31,6 +31,10 @@ package org.nikialeksey.gameengine.ai.behaviortree;
  */
 public class Selector extends Node {
 
+    /**
+     * Конструктор.
+     * @param nodes список дочеирних вершин
+     */
     public Selector(Node... nodes) {
         super(nodes);
     }
