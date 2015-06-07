@@ -24,6 +24,8 @@
 
 package org.nikialeksey.gameengine.ai.behaviortree;
 
+import java.util.UUID;
+
 /**
  *
  * @author Alexey Nikitin
@@ -34,6 +36,7 @@ public class BehaviorTree {
     private String uuid;
 
     public BehaviorTree(Node root) {
+        this.uuid = UUID.randomUUID().toString();
         this.root = root;
     }
 
