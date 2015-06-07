@@ -40,7 +40,7 @@ public class TestBlackboard extends TestCase {
         blackboard.put("key", "value");
         String value = (String) blackboard.get("key");
 
-        assertEquals(value, "value");
+        assertEquals("value", value);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class TestBlackboard extends TestCase {
         blackboard.put("key", "value", treeUUID);
         String value = (String) blackboard.get("key", treeUUID);
 
-        assertEquals(value, "value");
+        assertEquals("value", value);
     }
 
     @Test
@@ -61,6 +61,6 @@ public class TestBlackboard extends TestCase {
         blackboard.put("key", "value", treeUUID, nodeUUID);
         String value = (String) blackboard.get("key", treeUUID, nodeUUID);
 
-        assertEquals(value, "value");
+        assertEquals("value", value);
     }
 }

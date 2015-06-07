@@ -26,8 +26,11 @@ package org.nikialeksey.gameengine.ai.behaviortree.Decorators;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.nikialeksey.gameengine.ai.behaviortree.Actions.Wait;
+import org.nikialeksey.gameengine.ai.behaviortree.BehaviorTree;
 import org.nikialeksey.gameengine.ai.behaviortree.Blackboard;
 import org.nikialeksey.gameengine.ai.behaviortree.Node;
+import org.nikialeksey.gameengine.ai.behaviortree.Status;
 
 /**
  * @author Alexey Nikitin
@@ -35,8 +38,22 @@ import org.nikialeksey.gameengine.ai.behaviortree.Node;
 public class TestInverter extends TestCase {
 
     @Test
-    private void testInverter1() {
+    public void testInverter1() {
         Blackboard blackboard = new Blackboard();
-//        Node root = new Inverter(new )
+        Node root = new Inverter(new Wait(0));
+        BehaviorTree behaviorTree = new BehaviorTree(root);
+
+        Status status = behaviorTree.execute(blackboard);
+        assertEquals(Status.FAILURE, status);
+    }
+
+    @Test
+    public void testInverter2() {
+        Blackboard blackboard = new Blackboard();
+        Node root = new Inverter(new UntilFailure(new Wait(2000)));
+        BehaviorTree behaviorTree = new BehaviorTree(root);
+
+        Status status = behaviorTree.execute(blackboard);
+        assertEquals(Status.FAILURE, status);
     }
 }

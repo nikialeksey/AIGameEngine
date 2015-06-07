@@ -60,7 +60,7 @@ public class Wait extends Node {
      * вернет SUCCESS.
      * @param tick объект тика
      * @return ERROR, если время первого запуска не было записано; RUNNING, если время ожидания еще не прошло; SUCCESS,
-     * если время ожидания превышено.
+     * если время ожидания превышает или совпает с заданным значением.
      */
     @Override
     public Status tick(Tick tick) {
@@ -68,7 +68,7 @@ public class Wait extends Node {
         Long startTime = (Long)tick.getBlackboard().get("startTime", tick.getBehaviorTree().getUUID(), this.getUUID());
         if (startTime == null)
             return Status.ERROR;
-        if (currTime - startTime > this.waitingTime)
+        if (currTime - startTime >= this.waitingTime)
             return Status.SUCCESS;
         return Status.RUNNING;
     }

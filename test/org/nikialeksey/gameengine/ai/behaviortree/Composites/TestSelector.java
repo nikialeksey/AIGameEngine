@@ -25,9 +25,26 @@
 package org.nikialeksey.gameengine.ai.behaviortree.Composites;
 
 import junit.framework.TestCase;
+import org.junit.Test;
+import org.nikialeksey.gameengine.ai.behaviortree.Actions.Wait;
+import org.nikialeksey.gameengine.ai.behaviortree.BehaviorTree;
+import org.nikialeksey.gameengine.ai.behaviortree.Blackboard;
+import org.nikialeksey.gameengine.ai.behaviortree.Decorators.*;
+import org.nikialeksey.gameengine.ai.behaviortree.Node;
+import org.nikialeksey.gameengine.ai.behaviortree.Status;
 
 /**
  * @author Alexey Nikitin
  */
 public class TestSelector extends TestCase {
+
+    @Test
+    public void testSelector1() {
+//        Blackboard blackboard = new Blackboard();
+//        Node root = new Selector(new AlwaysFailure(), new AlwaysSuccess(), new AlwaysFailure());
+//        BehaviorTree behaviorTree = new BehaviorTree(root);
+//
+//        Status status = behaviorTree.execute(blackboard);
+//        assertEquals(Status.FAILURE, status);
+    }
 }
