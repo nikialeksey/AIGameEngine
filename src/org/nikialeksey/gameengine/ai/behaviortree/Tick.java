@@ -42,8 +42,8 @@ public class Tick {
     /**
      * Конструктор.
      * Сохранает ссылки на объект дерева поведения и на общую память.
-     * @param behaviorTree
-     * @param blackboard
+     * @param behaviorTree ссылка на дерево поведения, в котором создали объект Tick.
+     * @param blackboard ссылка на общую память.
      */
     public Tick(BehaviorTree behaviorTree, Blackboard blackboard) {
         this.behaviorTree = behaviorTree;
