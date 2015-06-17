@@ -39,35 +39,69 @@ public class Tick {
     private Blackboard blackboard;
     private Stack<Node> openNodes;
 
+    /**
+     * Конструктор.
+     * Сохранает ссылки на объект дерева поведения и на общую память.
+     * @param behaviorTree
+     * @param blackboard
+     */
     public Tick(BehaviorTree behaviorTree, Blackboard blackboard) {
         this.behaviorTree = behaviorTree;
         this.blackboard = blackboard;
         this.openNodes = new Stack<Node>();
     }
 
+    /**
+     * Возвращает ссылку на объект общей памяти.
+     * @return ссылку на объект общей памяти.
+     */
     public Blackboard getBlackboard() {
         return this.blackboard;
     }
 
+    /**
+     * Возвращает ссылку на дерево поведения.
+     * @return ссылку на дерево поведения.
+     */
     public BehaviorTree getBehaviorTree() {
         return this.behaviorTree;
     }
 
+    /**
+     * Исполняется при входе в вершину.
+     * @param node вершина, в которую осуществился вход.
+     */
     public void enterNode(Node node) {
     }
 
+    /**
+     * Исполняется при открытии вершины.
+     * @param node открываемая вершина.
+     */
     public void openNode(Node node) {
         this.openNodes.push(node);
     }
 
+    /**
+     * Исполняется перед выполнением логики вершины.
+     * @param node вершина, в которую зашли, возможно открыли, и еще не началось выполнение логики.
+     */
     public void tickNode(Node node) {
 
     }
 
+    /**
+     * Исполняется перед закрытием вершины.
+     * @param node закрываемая вершина.
+     */
     public void closeNode(Node node) {
         this.openNodes.pop();
     }
 
+    /**
+     * Исполняется перед выходом из вершины.
+     * @param node вершина, из которой осуществляется выход.
+     */
     public void exitNode(Node node) {
 
     }
