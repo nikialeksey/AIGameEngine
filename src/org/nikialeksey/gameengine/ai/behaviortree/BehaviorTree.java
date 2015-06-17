@@ -27,19 +27,35 @@ package org.nikialeksey.gameengine.ai.behaviortree;
 import java.util.UUID;
 
 /**
- *
+ * Класс представляет дерево поведения.
  * @author Alexey Nikitin
  */
 public class BehaviorTree {
 
+    /**
+     * корневая вершина
+     */
     private Node root;
+    /**
+     * уникальный идентификатор дерева поведения
+     */
     private String uuid;
 
+    /**
+     * Конструктор дерева поведения.
+     * Назначает уникальный идентификатор и устанавливает ссылку на корень дерева поведнеия.
+     * @param root корень дерева поведения, именно этой вершине будут передаваться сигналы на исполнение.
+     */
     public BehaviorTree(Node root) {
         this.uuid = UUID.randomUUID().toString();
         this.root = root;
     }
 
+    /**
+     * Создает объект тика и передает сигнал на исполнение корню дерева поведения
+     * @param blackboard память для принятия решения
+     * @return объект статуса
+     */
     public Status execute(Blackboard blackboard) {
         Tick tick = new Tick(this, blackboard);
 
@@ -47,6 +63,10 @@ public class BehaviorTree {
 
     }
 
+    /**
+     * Возвращает уникальный идентификатор дерева поведения.
+     * @return строка, представляющая уникальный идентификатор дерева поведения.
+     */
     public String getUUID() {return this.uuid;}
 
 }
