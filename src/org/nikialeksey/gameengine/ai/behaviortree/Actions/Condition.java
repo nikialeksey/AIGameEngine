@@ -37,13 +37,13 @@ import java.util.function.Predicate;
  * @author Alexey Nikitin
  */
 public class Condition extends Node {
-    Predicate<Blackboard> condition;
+    Predicate<Tick> condition;
 
     /**
      * Конструктор.
      * @param condition условие
      */
-    public Condition(Predicate<Blackboard> condition) {
+    public Condition(Predicate<Tick> condition) {
         super();
         this.condition = condition;
     }
@@ -67,7 +67,7 @@ public class Condition extends Node {
      */
     @Override
     public Status tick(Tick tick) {
-        boolean result = condition.test(tick.getBlackboard());
+        boolean result = condition.test(tick);
         return result ? Status.SUCCESS: Status.FAILURE;
     }
 
