@@ -38,11 +38,36 @@ public class Repeat extends Node {
 
     /**
      * Конструктор.
+     * Начальное значение для {@code repeatCount 1}.
+     * @param node дочерняя вершина
+     */
+    public Repeat(Node node) {
+        this(1, node);
+    }
+
+    /**
+     * Конструктор.
      * @param repeatCount количество передач сигнала на исполнение дочерней вершине.
      * @param node дочерняя вершина
      */
     public Repeat(int repeatCount, Node node) {
         super(node);
+        this.repeatCount = repeatCount;
+    }
+
+    /**
+     * Получить количество повторений сигнала
+     * @return количество повторений сигнала
+     */
+    public int getRepeatCount() {
+        return repeatCount;
+    }
+
+    /**
+     * Установить количество повторения сигнала
+     * @param repeatCount новое количество повторения сигнала
+     */
+    public void setRepeatCount(int repeatCount) {
         this.repeatCount = repeatCount;
     }
 
