@@ -37,7 +37,15 @@ import java.util.function.Predicate;
  * @author Alexey Nikitin
  */
 public class Condition extends Node {
-    Predicate<Tick> condition;
+    private Predicate<Tick> condition;
+
+    /**
+     * Конструктор.
+     * Условие по-умолчанию всегда истино.
+     */
+    public Condition() {
+        this(tick -> true);
+    }
 
     /**
      * Конструктор.
@@ -45,6 +53,22 @@ public class Condition extends Node {
      */
     public Condition(Predicate<Tick> condition) {
         super();
+        this.condition = condition;
+    }
+
+    /**
+     * Получить условие вершины
+     * @return условие
+     */
+    public Predicate<Tick> getCondition() {
+        return condition;
+    }
+
+    /**
+     * Установить условие для вершины
+     * @param condition новое условие для вершины
+     */
+    public void setCondition(Predicate<Tick> condition) {
         this.condition = condition;
     }
 

@@ -30,11 +30,6 @@ import org.nikialeksey.gameengine.ai.behaviortree.Node
 /**
  * @author Alexey Nikitin
  */
-fun <T : Node> Node.initNode(child: T, init: T.() -> Unit): T {
-    child.init()
-    children.add(child)
-    return child
-}
 
 fun Node.selector(init: Selector.() -> Unit) = initNode(Selector(), init)
 fun Node.sequence(init: Sequence.() -> Unit) = initNode(Sequence(), init)
