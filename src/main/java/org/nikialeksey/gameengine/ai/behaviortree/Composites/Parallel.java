@@ -37,6 +37,15 @@ public class Parallel extends Node {
 
     /**
      * Конструктор.
+     * Устанавливает {@code successCount} в {@code nodes.length / 2}, а {@code failureCount} в {@code 0}.
+     * @param nodes список дочерних вершин
+     */
+    public Parallel(Node... nodes) {
+        this(nodes.length / 2, 0, nodes);
+    }
+
+    /**
+     * Конструктор.
      * @param successCount количество дочерних вершин, которое должно вернуть SUCCESS,
      *                     чтобы данный композит вернул SUCCESS
      * @param failureCount количество дочерних вершин, которое должно вернуть FAILURE,
@@ -47,6 +56,42 @@ public class Parallel extends Node {
         super(nodes);
         this.successCount = successCount;
         this.failureCount = failureCount;
+    }
+
+    /**
+     * Получить количество дочерних вершин, которые должны вернуть FAILURE
+     * @return количество дочерних вершин, которые должны вернуть FAILURE
+     * @see #tick(Tick)
+     */
+    public int getFailureCount() {
+        return failureCount;
+    }
+
+    /**
+     * Установить количество дочерних вершин, которое должно вернуть FAILURE
+     * @param failureCount количество дочерних вершин, которое должно вернуть FAILURE
+     * @see #tick(Tick)
+     */
+    public void setFailureCount(int failureCount) {
+        this.failureCount = failureCount;
+    }
+
+    /**
+     * Получить количество дочерних вершин, которые должны вернуть SUCCESS
+     * @return количество дочерних вершин, которые должны вернуть SUCCESS
+     * @see #tick(Tick)
+     */
+    public int getSuccessCount() {
+        return successCount;
+    }
+
+    /**
+     * Установить количество дочерних вершин, которое должно вернуть SUCCESS
+     * @param successCount количество дочерних вершин, которое должно вернуть SUCCESS
+     * @see #tick(Tick)
+     */
+    public void setSuccessCount(int successCount) {
+        this.successCount = successCount;
     }
 
     @Override
