@@ -44,6 +44,18 @@ public class Wait extends Node {
         this.waitingTime = milliseconds;
     }
 
+    public Wait() {
+        super();
+    }
+
+    public long getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void setWaitingTime(long waitingTime) {
+        this.waitingTime = waitingTime;
+    }
+
     @Override
     public void enter(Tick tick) {
 

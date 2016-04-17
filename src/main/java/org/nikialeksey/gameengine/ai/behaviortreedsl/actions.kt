@@ -36,26 +36,24 @@ import java.util.function.Predicate
  * @author Alexey Nikitin
  */
 
-fun Node.condition(condition: (tick: Tick) -> Boolean): Condition {
-    val cond = Condition(Predicate { condition(it) })
+fun Node.condition(init: Condition.() -> Unit) = initNode(Condition(), init)
+fun Node.userAction(init: UserAction.() -> Unit) = initNode(UserAction(), init)
+fun Node.wait(init: Wait.() -> Unit) = initNode(Wait(), init)
+
+fun Node.condition(condition: (tick: Tick, parent: Node) -> Boolean): Condition {
+    val cond = Condition(Predicate { condition(it, this) })
     children.add(cond)
     return cond
 }
 
-fun Node.userAction(action: (tick: Tick) -> Unit): UserAction {
-    val userAction = UserAction(Consumer { action(it) })
+fun Node.userAction(action: (tick: Tick, parent: Node) -> Unit): UserAction {
+    val userAction = UserAction(Consumer { action(it, this) })
     children.add(userAction)
     return userAction
 }
 
 fun Node.wait(milliseconds: Long): Wait {
     val wait = Wait(milliseconds)
-    children.add(wait)
-    return wait
-}
-
-fun Node.wait(milliseconds: () -> Long): Wait {
-    val wait = Wait(milliseconds())
     children.add(wait)
     return wait
 }

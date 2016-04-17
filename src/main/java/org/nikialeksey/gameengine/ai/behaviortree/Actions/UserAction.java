@@ -36,7 +36,7 @@ import java.util.function.Consumer;
  */
 public class UserAction extends Node {
 
-    private Consumer<Tick> action;
+    private Consumer<Tick> action = tick -> { };
 
     /**
      * Конструктор.
@@ -44,6 +44,18 @@ public class UserAction extends Node {
      */
     public UserAction(Consumer<Tick> action) {
         super();
+        this.action = action;
+    }
+
+    public UserAction() {
+        super();
+    }
+
+    public Consumer<Tick> getAction() {
+        return action;
+    }
+
+    public void setAction(Consumer<Tick> action) {
         this.action = action;
     }
 

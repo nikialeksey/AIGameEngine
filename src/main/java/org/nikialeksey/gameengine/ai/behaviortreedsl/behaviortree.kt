@@ -24,6 +24,9 @@
 
 package org.nikialeksey.gameengine.ai.behaviortreedsl
 
+import org.nikialeksey.gameengine.ai.behaviortree.Actions.Condition
+import org.nikialeksey.gameengine.ai.behaviortree.Actions.UserAction
+import org.nikialeksey.gameengine.ai.behaviortree.Actions.Wait
 import org.nikialeksey.gameengine.ai.behaviortree.BehaviorTree
 import org.nikialeksey.gameengine.ai.behaviortree.Composites.*
 import org.nikialeksey.gameengine.ai.behaviortree.Node
@@ -31,8 +34,8 @@ import org.nikialeksey.gameengine.ai.behaviortree.Node
 /**
  * @author Alexey Nikitin
  */
-fun <T : Node> Node.initNode(child: T, init: T.() -> Unit): T {
-    child.init()
+fun <T : Node> Node.initNode(child: T, init: T.(parent: Node) -> Unit): T {
+    child.init(this)
     children.add(child)
     return child
 }
@@ -42,11 +45,14 @@ fun <T : Node> initNode(child: T, init: T.() -> Unit): T {
     return child
 }
 
-fun selector(init: Selector.() -> Unit) = initNode(Selector(), init)
-fun sequence(init: Sequence.() -> Unit) = initNode(Sequence(), init)
-fun parallel(init: Parallel.() -> Unit) = initNode(Parallel(), init)
-fun memSelector(init: MemSelector.() -> Unit) = initNode(MemSelector(), init)
-fun memSequence(init: MemSequence.() -> Unit) = initNode(MemSequence(), init)
+fun _selector(init: Selector.() -> Unit) = initNode(Selector(), init)
+fun _sequence(init: Sequence.() -> Unit) = initNode(Sequence(), init)
+fun _parallel(init: Parallel.() -> Unit) = initNode(Parallel(), init)
+fun _memSelector(init: MemSelector.() -> Unit) = initNode(MemSelector(), init)
+fun _memSequence(init: MemSequence.() -> Unit) = initNode(MemSequence(), init)
+fun _userAction(init: UserAction.() -> Unit) = initNode(UserAction(), init)
+fun _condition(init: Condition.() -> Unit) = initNode(Condition(), init)
+fun _wait(init: Wait.() -> Unit) = initNode(Wait(), init)
 
 
 fun behaviorTree(creator: () -> Node): BehaviorTree {

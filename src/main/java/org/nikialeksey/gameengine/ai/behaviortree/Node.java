@@ -24,9 +24,7 @@
 
 package org.nikialeksey.gameengine.ai.behaviortree;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Абстрактный класс вершины дерева повдения.
@@ -37,6 +35,8 @@ public abstract class Node {
 
     private String uuid;
     private ArrayList<Node> children;
+    private ArrayList<Node> addBuffer = new ArrayList<>();
+    private Set<String> removeUUIDBuffer = new HashSet<>();
 
     /**
      * Конструктор.
@@ -76,6 +76,18 @@ public abstract class Node {
         }
 
         Status status = this.btTick(tick);
+        children.addAll(addBuffer);
+        addBuffer.clear();
+        for (Node c: children) {
+            if (!removeUUIDBuffer.contains(c.uuid)) {
+                addBuffer.add(c);
+            }
+        }
+        children.clear();
+        children.addAll(addBuffer);
+        addBuffer.clear();
+        removeUUIDBuffer.clear();
+
 
         if (status != Status.RUNNING) {
             this.btClose(tick);
@@ -146,4 +158,12 @@ public abstract class Node {
      * @param tick объект тика
      */
     public abstract void exit(Tick tick);
+
+    public void addChild(Node node) {
+        addBuffer.add(node);
+    }
+
+    public void removeChild(Node node) {
+        removeUUIDBuffer.add(node.uuid);
+    }
 }
