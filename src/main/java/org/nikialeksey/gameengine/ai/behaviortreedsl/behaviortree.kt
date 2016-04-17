@@ -53,9 +53,3 @@ fun _memSequence(init: MemSequence.() -> Unit) = initNode(MemSequence(), init)
 fun _userAction(init: UserAction.() -> Unit) = initNode(UserAction(), init)
 fun _condition(init: Condition.() -> Unit) = initNode(Condition(), init)
 fun _wait(init: Wait.() -> Unit) = initNode(Wait(), init)
-
-
-fun behaviorTree(creator: () -> Node): BehaviorTree {
-    val behaviorTree = BehaviorTree(creator())
-    return behaviorTree
-}
