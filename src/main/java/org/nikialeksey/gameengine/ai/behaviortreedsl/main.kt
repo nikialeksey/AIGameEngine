@@ -5,20 +5,28 @@ import org.nikialeksey.gameengine.ai.behaviortree.Blackboard
 import java.util.function.Consumer
 
 fun main(agrs: Array<String>) {
-    val root = _sequence {
+    val root = Sequence {
         userAction { tick, parent ->
-            parent.addChild(_userAction {
+            parent.addChild(UserAction {
                 action = Consumer {
-                    println("After 1 sec ${uuid}")
+                    println(uuid)
                     parent.removeChild(this)
                 }
             })
         }
     }
-    val bt = BehaviorTree(root)
+    println(root.children.size) // 1
 
+    val bt = BehaviorTree(root)
     val bb = Blackboard()
-    bt.execute(bb)
-    bt.execute(bb)
-    bt.execute(bb)
+
+    bt.execute(bb) // первый userAction добавит еще один userAction к sequence
+    println(root.children.size) // 2
+
+    bt.execute(bb) // первый userAction сделает то же самое, а второй userAction
+                   // выведет свой id и удалит себя из sequence
+    println(root.children.size) // 2
+
+    bt.execute(bb) // --//--//--
+    println(root.children.size) // 2
 }
