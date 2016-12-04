@@ -1,0 +1,10 @@
+repositories {
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+}
+
+dependencies {
+    compile project(':core')
+    compile group: 'com.badlogicgames.gdx', name: 'gdx', version:'1.9.4'
+    compile group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl', version:'1.9.4'
+    compile 'com.badlogicgames.gdx:gdx-platform:1.9.4:natives-desktop'
+}

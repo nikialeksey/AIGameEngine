@@ -27,7 +27,6 @@ package org.nikialeksey.gameengine.ai.behaviortreedsl
 import org.nikialeksey.gameengine.ai.behaviortree.Actions.Condition
 import org.nikialeksey.gameengine.ai.behaviortree.Actions.UserAction
 import org.nikialeksey.gameengine.ai.behaviortree.Actions.Wait
-import org.nikialeksey.gameengine.ai.behaviortree.BehaviorTree
 import org.nikialeksey.gameengine.ai.behaviortree.Composites.*
 import org.nikialeksey.gameengine.ai.behaviortree.Node
 import org.nikialeksey.gameengine.ai.behaviortree.Tick

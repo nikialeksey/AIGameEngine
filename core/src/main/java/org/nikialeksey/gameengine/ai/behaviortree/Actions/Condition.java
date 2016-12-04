@@ -24,7 +24,6 @@
 
 package org.nikialeksey.gameengine.ai.behaviortree.Actions;
 
-import org.nikialeksey.gameengine.ai.behaviortree.Blackboard;
 import org.nikialeksey.gameengine.ai.behaviortree.Node;
 import org.nikialeksey.gameengine.ai.behaviortree.Status;
 import org.nikialeksey.gameengine.ai.behaviortree.Tick;

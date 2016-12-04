@@ -25,13 +25,12 @@
 package org.nikialeksey.gameengine.ai.behaviortree.Composites;
 
 import junit.framework.TestCase;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.nikialeksey.gameengine.ai.behaviortree.Actions.UserAction;
-import org.nikialeksey.gameengine.ai.behaviortree.Actions.Wait;
 import org.nikialeksey.gameengine.ai.behaviortree.BehaviorTree;
 import org.nikialeksey.gameengine.ai.behaviortree.Blackboard;
-import org.nikialeksey.gameengine.ai.behaviortree.Decorators.*;
+import org.nikialeksey.gameengine.ai.behaviortree.Decorators.AlwaysFailure;
+import org.nikialeksey.gameengine.ai.behaviortree.Decorators.AlwaysSuccess;
 import org.nikialeksey.gameengine.ai.behaviortree.Node;
 import org.nikialeksey.gameengine.ai.behaviortree.Status;
 
